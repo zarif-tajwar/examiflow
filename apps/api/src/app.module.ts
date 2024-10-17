@@ -1,12 +1,17 @@
 import { Module } from '@nestjs/common';
 
-import { LinksModule } from './links/links.module';
-
-import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { loadEnv } from './config/env.config';
 
 @Module({
-  imports: [LinksModule],
+  imports: [
+    ConfigModule.forRoot({
+      load: [loadEnv],
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
