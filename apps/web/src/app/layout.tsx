@@ -2,6 +2,8 @@ import '@repo/ui/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
+import Providers from '../components/providers';
+import { Toaster } from '@repo/ui/components/ui/sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,7 +15,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>{children}</body>
+      <body className={`${inter.className}`}>
+        <Providers>{children}</Providers>
+        <Toaster position="top-center" />
+      </body>
     </html>
   );
 }

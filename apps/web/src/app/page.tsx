@@ -9,7 +9,9 @@ const RootPage = () => {
 
   return (
     <div>
-      <Button size={'lg'}>Click Me</Button>
+      <Button size={'lg'} className="bg-slate-500">
+        Click Me
+      </Button>
     </div>
   );
 };

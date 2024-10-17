@@ -8,6 +8,8 @@ import { fromZodError } from 'zod-validation-error';
 export const envSchema = z.object({
   WEBSITE_URL: z.string(),
   PORT: z.coerce.number().optional(),
+  MONGODB_URI: z.string(),
+  DB_NAME: z.string(),
 });
 
 /**

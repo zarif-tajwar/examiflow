@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { loadEnv } from './config/env.config';
+import { getEnvValue, loadEnv } from './config/env.config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -11,6 +13,15 @@ import { loadEnv } from './config/env.config';
       load: [loadEnv],
       isGlobal: true,
     }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: getEnvValue(configService, 'MONGODB_URI'),
+        dbName: getEnvValue(configService, 'DB_NAME'),
+      }),
+      inject: [ConfigService],
+    }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
